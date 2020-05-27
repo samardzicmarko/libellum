@@ -1,28 +1,40 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
-</template>
+  <v-container-fluid>
+    <TheHeader />
 
+    <v-app
+      style=" background: #398C80;
+    background: -webkit-linear-gradient(to right, #44A08D, #4AA585, #69BC84);
+    background: linear-gradient(to right, #44A08D,#4AA585,#69BC84);"
+    >
+      <v-row>
+        <v-col class="col-12">
+          <router-view />
+        </v-col>
+      </v-row>
+    </v-app>
+    <div>
+      <TheFooter id="footer" />
+    </div>
+  </v-container-fluid>
+</template>
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import TheHeader from "./components/Navigation/TheHeader.vue";
+import TheFooter from "./components/Navigation/TheFooter.vue";
 
 export default {
-  name: 'App',
   components: {
-    HelloWorld
+    TheHeader,
+    TheFooter
   }
-}
+};
 </script>
-
-<style>
+<style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
