@@ -5,9 +5,10 @@
         <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
           <div class="title-header">
             Jednostavna izrada ponude.
-            <div
-              class="subtitle"
-            >Kreirajte ponudu ili predračun na brz, jednostavan i pregledan način, potpuno besplatno.</div>
+            <div class="subtitle">
+              Kreirajte račun, ponudu ili predračun na brz, jednostavan i
+              pregledan način, potpuno besplatno.
+            </div>
             <div class="subtext">
               Ispunite potrebne podatke unutar forme i u par minuta izradite
               profesionalan račun. Spreman za printanje, slanje e-mailom ili
@@ -15,7 +16,9 @@
             </div>
             <div class="button-action">
               <router-link to="/create/invoice">
-                <v-btn id="btnGo" color="#e1e2e1" dark large>Kreiraj ponudu</v-btn>
+                <v-btn id="btnGo" color="#e1e2e1" dark large
+                  >Kreiraj račun</v-btn
+                >
               </router-link>
             </div>
           </div>
@@ -30,10 +33,9 @@
         <div class="col">
           <div class="benefits">
             <v-card id="benefitsCard" color="white">
-              <v-card-title
-                id="titleBenefits"
-                class="justify-center"
-              >Promjenite način izrade računa.</v-card-title>
+              <v-card-title id="titleBenefits" class="justify-center"
+                >Promjenite način izrade računa.</v-card-title
+              >
               <div class="icons">
                 <div class="row">
                   <div class="col">
@@ -62,9 +64,9 @@
                     <div class="titleClock">
                       <p id="TitleClock">Konzistentnost</p>
                       <div class="textClock">
-                        Svaki račun imati će jednak predložak te će sadržavati sve
-                        potrebne komponente koje svaki račun mora imati. Nakon
-                        toga račun se sprema u PDF formatu.
+                        Svaki račun imati će jednak predložak te će sadržavati
+                        sve potrebne komponente koje svaki račun mora imati.
+                        Nakon toga račun se sprema u PDF formatu.
                       </div>
                     </div>
                   </div>
@@ -73,8 +75,9 @@
                     <div class="titleClock">
                       <p id="TitleClock">Uštedite vrijeme</p>
                       <div class="textClock">
-                        Na vama je samo da ispunite podatke koje želite prikazati
-                        na računu. Mi ćemo se pobrinuti za tehnički dio.
+                        Na vama je samo da ispunite podatke koje želite
+                        prikazati na računu. Mi ćemo se pobrinuti za tehnički
+                        dio.
                       </div>
                     </div>
                   </div>
@@ -90,7 +93,7 @@
 
 <script>
 export default {
-  name: "home"
+  name: "home",
 };
 </script>
 

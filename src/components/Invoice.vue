@@ -3,7 +3,7 @@
     <div ref="content">
       <v-card id="mainCard" class="mx-auto">
         <v-card-title id="racun" class="headline justify-center">
-          <div id="naslov">Izrada ponude</div>
+          <div id="naslov">Izrada računa</div>
         </v-card-title>
         <hr />
 
@@ -12,7 +12,7 @@
             <v-card class="mx-auto" outlined>
               <v-card outlined>
                 <v-card-title id="naslovIzdavatelj" class="headline">
-                  <div>Podaci o izdavatelju ponude</div>
+                  <div>Podaci o izdavatelju računa</div>
                 </v-card-title>
                 <GeneralInfo @dataSent="fillData" />
                 <v-container id="bankovniPodaci">
@@ -47,18 +47,21 @@
           <div class="col-12">
             <v-card class="mx-auto" outlined>
               <v-card-title id="podaciRacun" class="headline">
-                <div>Podaci o ponudi</div>
+                <div>Podaci o računu</div>
               </v-card-title>
               <div class="row">
                 <div class="col-md-7" id="racunInfo">
                   <v-text-field
                     v-model="racun.br_racuna"
-                    label="Ponuda Broj: "
+                    label="Račun Broj: "
                     hint="Primjer: 2020/10/1"
                     :rules="[rules.required]"
                   ></v-text-field>
                   <DateInput @dateSent="fillDate" :hint="hintDatumIzdavanja" />
-                  <DateInput @dateSent="fillDospijece" :hint="hintDatumDospijeca" />
+                  <DateInput
+                    @dateSent="fillDospijece"
+                    :hint="hintDatumDospijeca"
+                  />
                   <v-text-field
                     v-model="racun.mjesto"
                     label="Mjesto izdavanja"
@@ -76,14 +79,21 @@
                   <div class="radioTitle">Obračun PDV-a:</div>
                   <v-radio-group
                     v-model="racun.tax_included"
-                    @change="calculateTotalWithTax(proizvod); discountTotal();"
+                    @change="
+                      calculateTotalWithTax(proizvod);
+                      discountTotal();
+                    "
                     :rules="[rules.required]"
                   >
                     <v-radio label="S PDV-om" value="yes"></v-radio>
                     <v-radio label="Bez PDV-a" value="no"></v-radio>
                   </v-radio-group>
                   <div class="radioTitle">Valuta plaćanja:</div>
-                  <v-radio-group id="valutaRadio" v-model="racun.valuta" :rules="[rules.required]">
+                  <v-radio-group
+                    id="valutaRadio"
+                    v-model="racun.valuta"
+                    :rules="[rules.required]"
+                  >
                     <v-radio label="Kuna (HRK)" value="kn"></v-radio>
                     <v-radio label="EURO (‎€)" value="€"></v-radio>
                   </v-radio-group>
@@ -108,15 +118,35 @@
                     <tr>
                       <th id="clearIcon" scope="col"></th>
 
-                      <th scope="col" class="col-sm-3 col-md-3 col-xs-3 col-lg-3">Usluga/Proizvod</th>
-                      <th scope="col" class="col-sm-2 col-md-2 col-xs-2 col-lg-2">Cijena</th>
-                      <th scope="col" class="col-sm-1 col-md-1 col-xs-1">Količina</th>
+                      <th
+                        scope="col"
+                        class="col-sm-3 col-md-3 col-xs-3 col-lg-3"
+                      >
+                        Usluga/Proizvod
+                      </th>
+                      <th
+                        scope="col"
+                        class="col-sm-2 col-md-2 col-xs-2 col-lg-2"
+                      >
+                        Cijena
+                      </th>
+                      <th scope="col" class="col-sm-1 col-md-1 col-xs-1">
+                        Količina
+                      </th>
 
-                      <th scope="col" class="col-sm-2 col-md-2 col-xs-2 col-lg-2">Konačna cijena</th>
+                      <th
+                        scope="col"
+                        class="col-sm-2 col-md-2 col-xs-2 col-lg-2"
+                      >
+                        Konačna cijena
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr v-for="(proizvod, index) in racun.proizvodi" :key="index">
+                    <tr
+                      v-for="(proizvod, index) in racun.proizvodi"
+                      :key="index"
+                    >
                       <td scope="row" class="trashIconContainer">
                         <button @click="deleteProduct(index)">
                           <img id="clearProduct" src="../assets/clear.svg" />
@@ -185,7 +215,9 @@
                       <td
                         class="text-right"
                         v-if="racun.tax_included === 'yes'"
-                      >PDV {{ racun.pdv }} %</td>
+                      >
+                        PDV {{ racun.pdv }} %
+                      </td>
                       <td class="text-right">
                         {{ racun.tax_amount }}
                         <p class="valuta" v-if="racun.valuta === 'kn'">kn</p>
@@ -213,9 +245,9 @@
 
                     <tr
                       v-if="
-                    racun.popust === 'yes' &&
-                      (racun.popustPerc > 0 || racun.popustIznos > 0)
-                  "
+                        racun.popust === 'yes' &&
+                          (racun.popustPerc > 0 || racun.popustIznos > 0)
+                      "
                     >
                       <td></td>
                       <td></td>
@@ -226,8 +258,14 @@
                         class="text-right"
                         id="totalPrice"
                         v-if="racun.popustPerc > 0"
-                      >-{{ racun.popustPerc }} %</td>
-                      <td class="text-right" id="totalPrice" v-if="racun.popustIznos > 0">
+                      >
+                        -{{ racun.popustPerc }} %
+                      </td>
+                      <td
+                        class="text-right"
+                        id="totalPrice"
+                        v-if="racun.popustIznos > 0"
+                      >
                         -{{ racun.popustIznos | currency }}
                         <p class="valuta" v-if="racun.valuta === 'kn'">kn</p>
                         <p class="valuta" v-else-if="racun.valuta === '€'">€</p>
@@ -236,9 +274,9 @@
 
                     <tr
                       v-if="
-                    racun.popust === 'yes' &&
-                      (racun.popustPerc > 0 || racun.popustIznos > 0)
-                  "
+                        racun.popust === 'yes' &&
+                          (racun.popustPerc > 0 || racun.popustIznos > 0)
+                      "
                     >
                       <td></td>
                       <td></td>
@@ -261,7 +299,9 @@
                       class="btn btn-info"
                       id="addProductbtn"
                       @click="addNewProduct()"
-                    >Dodaj proizvod</button>
+                    >
+                      Dodaj proizvod
+                    </button>
                   </div>
                   <br />
                   <div class="discount">
@@ -313,13 +353,18 @@
                     Preuzmi račun
                   </button>
                 </div>
-                <router-link :to="{ name: 'CreatePDF', params: { content: racun } }">
+                <router-link
+                  :to="{ name: 'CreatePDF', params: { content: racun } }"
+                >
                   <button
                     v-if="this.racun.proizvodi[0].iznos_ukupno.length > 0"
                     type="button"
                     id="download"
                     class="btn btn-info download"
-                    @click="formatTotalPrices(); getInvoiceTime"
+                    @click="
+                      formatTotalPrices();
+                      getInvoiceTime;
+                    "
                   >
                     Preuzmi račun
                     <img id="downloadImg" src="../assets/download.svg" />
@@ -342,12 +387,12 @@ export default {
   name: "invoice",
   props: {
     data: {
-      type: Object
-    }
+      type: Object,
+    },
   },
   components: {
     GeneralInfo: GeneralInfo,
-    DateInput: DateInput
+    DateInput: DateInput,
   },
 
   data() {
@@ -377,8 +422,8 @@ export default {
             kolicina: "",
             iznos_ukupno: "",
             total: 0,
-            productPdv: 0
-          }
+            productPdv: 0,
+          },
         ],
         iznos_bez_pdv: 0,
         ukupan_iznos: 0,
@@ -390,29 +435,30 @@ export default {
         popustIznos: 0,
         tax_included: "no",
         tax_amount: 0,
-        notes: ""
+        notes: "",
       },
-      date: vm => ({
+      date: (vm) => ({
         date: new Date().toISOString().substr(0, 10),
-        dateFormatted: vm.formatDate(new Date().toISOString().substr(0, 10))
+        dateFormatted: vm.formatDate(new Date().toISOString().substr(0, 10)),
       }),
       rules: {
-        required: value => !!value || "Ovo polje je obavezno.",
-        counter: value => value.length <= 40 || "Max 20 characters",
-        email: value => {
+        required: (value) => !!value || "Ovo polje je obavezno.",
+        counter: (value) => value.length <= 40 || "Max 20 characters",
+        email: (value) => {
           const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
           return (
             pattern.test(value) || "Molimo unesite ispravnu e-mail adresu."
           );
         },
-        percentage: value => value < 100 || "Postotak ne može biti veći od 100"
-      }
+        percentage: (value) =>
+          value < 100 || "Postotak ne može biti veći od 100",
+      },
     };
   },
   computed: {
     computedDateFormatted() {
       return this.formatDate(this.date);
-    }
+    },
   },
 
   methods: {
@@ -444,7 +490,7 @@ export default {
         iznos_ukupno: 0,
         productPdv: 0,
         redaka: 0,
-        tax_am: ""
+        tax_am: "",
       });
     },
     deleteProduct(index) {
@@ -533,11 +579,11 @@ export default {
     },
     fillDospijece(date) {
       this.racun.dospijece = date;
-    }
+    },
   },
   created() {
     this.fillDate();
-  }
+  },
 };
 </script>
 <style>

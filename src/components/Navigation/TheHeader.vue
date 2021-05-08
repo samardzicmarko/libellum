@@ -2,7 +2,7 @@
   <div>
     <v-toolbar color="#398C80">
       <router-link to="/">
-        <v-toolbar-title id="brandName">Libellum</v-toolbar-title>
+        <v-toolbar-title id="brandName">Računko</v-toolbar-title>
       </router-link>
       <v-spacer></v-spacer>
     </v-toolbar>
