@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import Invoice from "../components/Invoice.vue";
 import CreatePDF from "../components/CreatePDF.vue";
 import Home from "../components/Home.vue";
+import createAppLavanda from "../components/createAppLavanda.vue";
 
 Vue.use(VueRouter);
 
@@ -23,6 +24,12 @@ const routes = [
     path: "/create/PDF/",
     name: "CreatePDF",
     component: CreatePDF,
+    props: true,
+  },
+  {
+    path: "/create/lavanda",
+    name: "lavanda",
+    component: createAppLavanda,
     props: true,
   },
 ];

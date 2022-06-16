@@ -4,7 +4,7 @@
       <div class="row" id="title">
         <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
           <div class="title-header">
-            Jednostavna izrada ponude.
+            Jednostavna izrada ponude ili računa.
             <div class="subtitle">
               Kreirajte račun, ponudu ili predračun na brz, jednostavan i
               pregledan način, potpuno besplatno.

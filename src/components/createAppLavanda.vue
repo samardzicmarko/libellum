@@ -383,7 +383,7 @@ import GeneralInfo from "./GeneralInfo";
 import DateInput from "./DateInput";
 
 export default {
-  name: "invoice",
+  name: "lavanda",
   props: {
     data: {
       type: Object,
@@ -410,7 +410,7 @@ export default {
         datum: this.dateFormatted,
         operater: "",
         primatelj: [],
-        vrijeme_izrade: '',
+        vrijeme_izrade: "",
         countProducts: 2,
         iban: "",
         proizvodi: [
@@ -479,7 +479,9 @@ export default {
       let time = new Date(unix * 1000);
       let hours = time.getHours();
       let minutes = "0" + time.getMinutes();
+      console.log("hous" + hours + "minutes" + hours);
       this.racun.vrijeme_izrade = hours + ":" + minutes.substr(-2);
+
     },
     addNewProduct() {
       this.racun.proizvodi.push({

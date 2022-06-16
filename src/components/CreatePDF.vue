@@ -1,7 +1,7 @@
 <template>
   <v-card height="300" id="succesCard">
     <div>
-      {{invoice}}
+      {{ invoice }}
       <success id="msg" v-if="showSucces" :message="msg" />Preuzimanje nije
       krenulo automatski?
       <br />
@@ -11,7 +11,9 @@
           id="downloadManual"
           class="btn btn-info downloadManual"
           @click="generatePDF"
-        >Preuzmi ručno</button>
+        >
+          Preuzmi ručno
+        </button>
       </v-card-text>
     </div>
     <v-spacer />
@@ -21,14 +23,14 @@
 import Success from "./Success";
 export default {
   components: {
-    Success
+    Success,
   },
   data: function() {
     return {
       invoice: {},
       valuta: "",
       msg: "Cestitamo na uspješno izrađenom računu!",
-      showSucces: null
+      showSucces: null,
     };
   },
   methods: {
@@ -68,8 +70,8 @@ export default {
                     this.invoice.iban +
                     "\n" +
                     "SWIFT Adresa: " +
-                    this.invoice.swift
-                }
+                    this.invoice.swift,
+                },
               },
               {
                 text: {
@@ -88,21 +90,21 @@ export default {
                     this.invoice.primatelj[0].zip +
                     "\n" +
                     "Tel: " +
-                    this.invoice.primatelj[0].mobitel
+                    this.invoice.primatelj[0].mobitel,
                 },
-                style: "invoiceBuyerDetails"
-              }
-            ]
+                style: "invoiceBuyerDetails",
+              },
+            ],
           },
           {
             columns: [
               {
                 text: {
-                  text: "Ponuda br. " + this.invoice.br_racuna
+                  text: "Račun br. " + this.invoice.br_racuna,
                 },
-                style: "invoiceNumber"
-              }
-            ]
+                style: "invoiceNumber",
+              },
+            ],
           },
           {
             columns: [
@@ -112,7 +114,7 @@ export default {
                     "Datum: " +
                     this.invoice.datum +
                     "\n" +
-                    "Vrijeme izdavanja ponude: " +
+                    "Vrijeme izdavanja računa: " +
                     this.invoice.vrijeme_izrade +
                     "\n" +
                     "Dospijeće: " +
@@ -122,11 +124,11 @@ export default {
                     this.invoice.operater +
                     "\n" +
                     "Način plaćanja: " +
-                    this.invoice.nacin_placanja
+                    this.invoice.nacin_placanja,
                 },
-                style: "aboutInvoice"
-              }
-            ]
+                style: "aboutInvoice",
+              },
+            ],
           },
           {
             columns: [
@@ -134,101 +136,101 @@ export default {
                 "Ime",
                 "Kolicina",
                 "Cijena",
-                "Konacnacijena"
-              ])
-            ]
+                "Konacnacijena",
+              ]),
+            ],
           },
           {
             layout: "lightHorizontalLines",
-            columns: [this.filterTax(this.invoice)]
+            columns: [this.filterTax(this.invoice)],
           },
           {
             layout: "lightHorizontalLines",
-            columns: [this.addDiscount(this.invoice)]
+            columns: [this.addDiscount(this.invoice)],
           },
 
           // TOTAL
 
           {
-            columns: [{ text: this.invoice.notes, style: "notesText" }]
-          }
+            columns: [{ text: this.invoice.notes, style: "notesText" }],
+          },
         ],
 
         styles: {
           invoiceBillingDetails: {
             alignment: "left",
             fontSize: 12,
-            margin: [0, 20, 0, 5]
+            margin: [0, 20, 0, 5],
           },
           invoiceBuyerDetails: {
             alignment: "right",
             fontSize: 12,
-            margin: [0, 100, 0, 5]
+            margin: [0, 100, 0, 5],
           },
           aboutInvoice: {
             alignment: "right",
             fontSize: 10,
-            margin: [0, 60, 0, 5]
+            margin: [0, 60, 0, 5],
           },
 
           invoiceNumber: {
             alignment: "center",
             fontSize: 14,
-            bold: true
+            bold: true,
           },
           itemsHeader: {
             margin: [0, 5, 0, 5],
-            bold: true
+            bold: true,
           },
           center: {
-            alignment: "center"
+            alignment: "center",
           },
           itemTable: {
             margin: [0, 5, 0, 5],
-            alignment: "center"
+            alignment: "center",
           },
           tableHeader: {
-            bold: true
+            bold: true,
           },
           line: {
-            margin: [0, 20, 0, 0]
+            margin: [0, 20, 0, 0],
           },
           totalTitle: {
             margin: [0, 5, 0, 5],
             fontSize: 10,
-            alignment: "right"
+            alignment: "right",
           },
           totalValue: {
             margin: [0, 5, 0, 5],
             fontSize: 10,
-            alignment: "center"
+            alignment: "center",
           },
           notesText: {
             fontSize: 10,
-            margin: [0, 90, 0, 0]
+            margin: [0, 90, 0, 0],
           },
           itemsFooterSubTitle: {
             margin: [0, 5, 40, 5],
             fontSize: 11,
-            alignment: "right"
+            alignment: "right",
           },
           itemsFooterTotalTitle: {
             margin: [0, 5, 0, 5],
             fontSize: 11,
-            alignment: "right"
+            alignment: "right",
           },
           itemsFooterSubValue: {
             margin: [0, 5, 0, 5],
             fontSize: 11,
-            alignment: "center"
+            alignment: "center",
           },
           itemsFooterTotalValue: {
             margin: [0, 5, 0, 5],
             fontSize: 11,
             bold: true,
-            alignment: "center"
-          }
-        }
+            alignment: "center",
+          },
+        },
       };
       pdfMake.createPdf(docDefinition).download("racun.pdf");
       this.showSucces = true;
@@ -246,7 +248,7 @@ export default {
           Cijena: items[i].cijena + " " + invoice.valuta,
           Kolicina: items[i].kolicina,
           PDV: items[i].productPdv + "%",
-          Konacna: items[i].iznos_ukupno + " " + invoice.valuta
+          Konacna: items[i].iznos_ukupno + " " + invoice.valuta,
         });
       }
 
@@ -303,23 +305,23 @@ export default {
               [
                 {
                   text: "",
-                  style: "line"
+                  style: "line",
                 },
                 {
                   text: "",
-                  style: ""
-                }
+                  style: "",
+                },
               ],
               [
                 { text: "Ukupno", style: "itemsFooterSubTitle" },
                 {
                   text: this.invoice.ukupan_iznos + this.getCurrency(),
-                  style: "itemsFooterSubValue"
-                }
-              ]
-            ]
+                  style: "itemsFooterSubValue",
+                },
+              ],
+            ],
           },
-          layout: "lightHorizontalLines"
+          layout: "lightHorizontalLines",
         };
       } else if (this.invoice.tax_included === "yes") {
         return {
@@ -334,36 +336,36 @@ export default {
               [
                 {
                   text: "Osnovica: ",
-                  style: "itemsFooterSubTitle"
+                  style: "itemsFooterSubTitle",
                 },
                 {
                   text: this.invoice.iznos_bez_pdv + " " + this.getCurrency(),
-                  style: "itemsFooterSubValue"
-                }
+                  style: "itemsFooterSubValue",
+                },
               ],
               [
                 {
                   text: "PDV 25%",
-                  style: "itemsFooterSubTitle"
+                  style: "itemsFooterSubTitle",
                 },
                 {
                   text: this.invoice.tax_amount + " " + this.getCurrency(),
-                  style: "itemsFooterSubValue"
-                }
+                  style: "itemsFooterSubValue",
+                },
               ],
               [
                 {
                   text: "Sveukupno:",
-                  style: "itemsFooterSubTitle"
+                  style: "itemsFooterSubTitle",
                 },
                 {
                   text: this.invoice.ukupan_iznos + " " + this.getCurrency(),
-                  style: "itemsFooterTotalValue"
-                }
-              ]
-            ]
+                  style: "itemsFooterTotalValue",
+                },
+              ],
+            ],
           },
-          layout: "lightHorizontalLines"
+          layout: "lightHorizontalLines",
 
           // table
         };
@@ -383,26 +385,26 @@ export default {
                 [
                   {
                     text: "Popust: ",
-                    style: "itemsFooterSubTitle"
+                    style: "itemsFooterSubTitle",
                   },
                   {
                     text: this.invoice.popustPerc + "%",
-                    style: "itemsFooterSubValue"
-                  }
+                    style: "itemsFooterSubValue",
+                  },
                 ],
                 [
                   {
                     text: "Sveukupno: ",
-                    style: "itemsFooterSubTitle"
+                    style: "itemsFooterSubTitle",
                   },
                   {
                     text: this.invoice.iznos_nakon_popusta + this.getCurrency(),
-                    style: "itemsFooterTotalValue"
-                  }
-                ]
-              ]
+                    style: "itemsFooterTotalValue",
+                  },
+                ],
+              ],
             },
-            layout: "lightHorizontalLines"
+            layout: "lightHorizontalLines",
 
             // table
           };
@@ -419,26 +421,26 @@ export default {
                 [
                   {
                     text: "Popust: ",
-                    style: "itemsFooterSubTitle"
+                    style: "itemsFooterSubTitle",
                   },
                   {
                     text: this.invoice.popustIznos + this.getCurrency(),
-                    style: "itemsFooterSubValue"
-                  }
+                    style: "itemsFooterSubValue",
+                  },
                 ],
                 [
                   {
                     text: "Sveukupno: ",
-                    style: "itemsFooterSubTitle"
+                    style: "itemsFooterSubTitle",
                   },
                   {
                     text: this.invoice.iznos_nakon_popusta + this.getCurrency(),
-                    style: "itemsFooterTotalValue"
-                  }
-                ]
-              ]
+                    style: "itemsFooterTotalValue",
+                  },
+                ],
+              ],
             },
-            layout: "lightHorizontalLines"
+            layout: "lightHorizontalLines",
 
             // table
           };
@@ -455,16 +457,16 @@ export default {
             headerRows: 1,
             widths: [20, 200, "*", "*", "*"],
             body: this.buildTableBody(data, columns),
-            style: { alignment: "center", margin: [0, 5, 0, 5] }
-          }
+            style: { alignment: "center", margin: [0, 5, 0, 5] },
+          },
         };
       } else if (this.invoice.tax_included === "special") {
         return {
           table: {
             headerRows: 1,
             widths: [20, 200, "*", "*", "*", "*"],
-            body: this.buildTableBody(data, columns)
-          }
+            body: this.buildTableBody(data, columns),
+          },
         };
       }
     },
@@ -475,13 +477,13 @@ export default {
     count() {
       let count = 0;
       return count++;
-    }
+    },
   },
 
   created() {
     this.populateData();
     this.generatePDF();
-  }
+  },
 };
 </script>
 
