@@ -49,6 +49,14 @@
                 <div>Podaci o računu</div>
               </v-card-title>
               <div class="row">
+                <div class="discount">
+                  <v-checkbox
+                    label="Ponuda umjesto računa."
+                    v-model="racun.ponuda"
+                    value="yes"
+                    required
+                  ></v-checkbox>
+                </div>
                 <div class="col-md-7" id="racunInfo">
                   <v-text-field
                     v-model="racun.br_racuna"
@@ -481,7 +489,6 @@ export default {
       let minutes = "0" + time.getMinutes();
       console.log("hous" + hours + "minutes" + hours);
       this.racun.vrijeme_izrade = hours + ":" + minutes.substr(-2);
-
     },
     addNewProduct() {
       this.racun.proizvodi.push({

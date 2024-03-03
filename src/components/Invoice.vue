@@ -50,6 +50,14 @@
               </v-card-title>
               <div class="row">
                 <div class="col-md-7" id="racunInfo">
+                  <div class="discount">
+                    <v-checkbox
+                      label="Ponuda umjesto računa."
+                      v-model="racun.ponuda"
+                      value="yes"
+                      required
+                    ></v-checkbox>
+                  </div>
                   <v-text-field
                     v-model="racun.br_racuna"
                     label="Račun Broj: "
@@ -403,6 +411,7 @@ export default {
 
       racun: {
         br_racuna: "",
+        ponuda: false,
         dospijece: "",
         nacin_placanja: "",
         izdavatelj: [],
@@ -410,7 +419,7 @@ export default {
         datum: this.dateFormatted,
         operater: "",
         primatelj: [],
-        vrijeme_izrade: '',
+        vrijeme_izrade: "",
         countProducts: 2,
         iban: "",
         proizvodi: [

@@ -100,7 +100,9 @@ export default {
             columns: [
               {
                 text: {
-                  text: "Račun br. " + this.invoice.br_racuna,
+                  text: this.invoice.ponuda
+                    ? "Ponuda br. " + this.invoice.br_racuna
+                    : "Račun br." + this.invoice.br_racuna,
                 },
                 style: "invoiceNumber",
               },
